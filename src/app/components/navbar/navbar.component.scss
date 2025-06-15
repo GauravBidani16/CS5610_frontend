@@ -1,0 +1,28 @@
+.navbar {
+  width: 100%;
+  // background: #333;
+  // color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  flex: 1;
+}
+
+nav a {
+  text-decoration: none;
+  // color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.mobile-menu {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  // background: #444;
+  padding: 1rem;
+  border-radius: 5px;
+}

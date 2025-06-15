@@ -1,0 +1,48 @@
+<div class="grid">
+  <div class="lg:col-6 lg:col-offset-3 md:col-8 md:col-offset-2 sm:col-8 sm:col-offset-2 col-10 col-offset-1">
+    <div class="basic-border">
+      <div class="col-12 text-center font-medium">
+        <h3>Login</h3>
+      </div>
+      <div class="md:col-12 md:col-offset-0 sm:col-12 sm:col-offset-0 p-4">
+        <div>
+          <form [formGroup]="loginForm" class="flex flex-column gap-3">
+            <div>
+              <p-iftalabel>
+                <input pInputText id="username" class="w-full border-noround" placeholder="Enter your username"
+                  formControlName="usernameFC" />
+                <label for="username" class="w-full">Username</label>
+              </p-iftalabel>
+            </div>
+
+            <div>
+              <p-iftalabel>
+                <input pInputText id="username" class="w-full border-noround" placeholder="Enter your username"
+                  formControlName="passwordFC" />
+                <label for="username" class="w-full">Username</label>
+              </p-iftalabel>
+            </div>
+
+            <div>
+              <button pButton pRipple (click)="onLoginClick()" [raised]="true" severity="success" class="w-full">
+                <span pButtonLabel>Log in</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <p-divider>
+          <span>OR</span>
+        </p-divider>
+
+        <div>
+          <div>
+            <button pButton pRipple (click)="navigateToRegister()" [raised]="true" severity="contrast" class="w-full">
+              <span pButtonLabel>Sign up</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

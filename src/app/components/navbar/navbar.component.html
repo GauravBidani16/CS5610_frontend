@@ -1,0 +1,15 @@
+<header class="navbar p-3 flex align-items-center justify-content-between">
+  <div class="logo text-2xl font-bold">MyApp</div>
+
+  <nav class="hidden lg:flex gap-4">
+    <a routerLink="/register">Register</a>
+    <a routerLink="/login">Login</a>
+  </nav>
+
+  <button class="lg:hidden p-button p-button-rounded" (click)="toggleMenu()">☰</button>
+
+  <div *ngIf="menuVisible" class="mobile-menu flex flex-column gap-2">
+    <a routerLink="/register">Register</a>
+    <a routerLink="/login">Login</a>
+  </div>
+</header>

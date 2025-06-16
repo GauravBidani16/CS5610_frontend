@@ -5,13 +5,17 @@ import { roleGuard } from './guards/role.guard';
 export const routes = [
   // { path: 'dashboard', canActivate: [authGuard], loadComponent: () => import('./pages/dashboard/dashboard.component') },
   // { path: 'profile', canActivate: [authGuard], loadComponent: () => import('./pages/profile/profile.component') },
-  { 
+  {
     path: 'login',
     loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent)
   },
-  { 
+  {
     path: 'register',
     loadComponent: () => import('./components/register/register.component').then(m => m.RegisterComponent)
+  },
+  {
+    path: 'profile/:username',
+    loadComponent: () => import('./components/profile/profile.component').then(m => m.ProfileComponent)
   },
   {
     path: '',
@@ -26,5 +30,4 @@ export const routes = [
   // { path: 'admin', canActivate: [authGuard, roleGuard], loadComponent: () => import('./pages/admin/admin.component').then(m => m.AdminComponent) },
 
   { path: '**', redirectTo: '/login' }
-
 ];

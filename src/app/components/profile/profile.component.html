@@ -1,0 +1,17 @@
+<div class="flex justify-content-center">
+  <div class="card p-4 w-8">
+    <img [src]="profileData.profilepic" alt="Profile Picture" class="profile-pic"/>
+    <h2>{{ profileData.username }}</h2>
+    <p>Followers: {{ profileData.followerCount }}</p>
+    <p>Following: {{ profileData.followingCount }}</p>
+    <p>Posts: {{ profileData.postCount }}</p>
+
+    <div *ngIf="canViewPosts">
+      <h3>User Posts</h3>
+      <ul>
+        <li *ngFor="let post of profileData.posts">{{ post.title }}</li>
+      </ul>
+    </div>
+    <p *ngIf="!canViewPosts">Posts are private.</p>
+  </div>
+</div>

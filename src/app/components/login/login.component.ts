@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 import { PrimeNGModule } from '../../shared/prime-ng/prime-ng.module';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { SnackbarService } from '../../services/snackbar.service';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
+    private snackbarService: SnackbarService,
     private router: Router
   ) { }
 
@@ -32,7 +34,9 @@ export class LoginComponent {
       this.authService.login(loginObject?.username!, loginObject?.password!).subscribe({
         next: (response) => {
           this.authService.storeToken(response?.data?.accessToken);
+          this.snackbarService.show('Login successful');
           console.log('Login successful');
+          this.router.navigate(['/home']);
           // this.router.navigate(['/dashboard']); // Redirect after login
         },
         error: (err) => {

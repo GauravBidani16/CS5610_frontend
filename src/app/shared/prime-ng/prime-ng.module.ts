@@ -7,6 +7,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DividerModule } from 'primeng/divider';
 import { PasswordModule } from 'primeng/password';
 import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @NgModule({
   declarations: [],
@@ -22,7 +24,9 @@ import { SelectModule } from 'primeng/select';
     InputTextModule,
     DividerModule,
     PasswordModule,
-    SelectModule
+    SelectModule,
+    InputGroupModule,
+    InputGroupAddonModule
   ],
 })
 export class PrimeNGModule { }

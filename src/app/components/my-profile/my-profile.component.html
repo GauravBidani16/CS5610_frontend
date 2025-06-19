@@ -1,0 +1,47 @@
+<div class="flex justify-content-center">
+  <div class="card p-4 w-8">
+    <img [src]="profileData.profilepic" alt="Profile Picture" class="profile-pic"/>
+    <h2>{{ profileData.username }}</h2>
+    <p>Followers: {{ profileData.followers.length }}</p>
+    <p>Following: {{ profileData.following.length }}</p>
+    <p>Posts: {{ profileData.posts.length }}</p>
+
+    <h3>Personal Information</h3>
+    <input type="text" [(ngModel)]="profileData.firstname" placeholder="First Name" class="p-inputtext w-full"/>
+    <input type="text" [(ngModel)]="profileData.lastname" placeholder="Last Name" class="p-inputtext w-full"/>
+    <textarea [(ngModel)]="profileData.bio" placeholder="Bio" class="p-inputtext w-full"></textarea>
+    <button class="p-button w-full" (click)="updateProfile()">Update Profile</button>
+
+    <h3>Add a New Post</h3>
+    <input type="file" (change)="updateFile($event)" class="p-inputtext w-full"/>
+    <input type="text" [(ngModel)]="newPostCaption" placeholder="Post Caption" class="p-inputtext w-full"/>
+    <button class="p-button w-full" (click)="createPost()">Update Profile</button>
+
+    <h3>Followers</h3>
+    <ul *ngIf="profileData.followers.length > 0">
+      <li *ngFor="let follower of profileData.followers">
+        <img [src]="follower.profilepic" alt="Profile Picture" class="small-profile-pic"/>
+        <a [routerLink]="'/profile/' + follower.username">{{ follower.username }}</a>
+      </li>
+    </ul>
+    <p *ngIf="profileData.followers.length === 0">No followers yet.</p>
+
+    <h3>Following</h3>
+    <ul *ngIf="profileData.following.length > 0">
+      <li *ngFor="let followingUser of profileData.following">
+        <img [src]="followingUser.profilepic" alt="Profile Picture" class="small-profile-pic"/>
+        <a [routerLink]="'/profile/' + followingUser.username">{{ followingUser.username }}</a>
+      </li>
+    </ul>
+    <p *ngIf="profileData.following.length === 0">Not following anyone yet.</p>
+
+    <h3>Manage Posts</h3>
+    <ul>
+      <li *ngFor="let post of profileData.posts">
+        <img [src]="post.postUrl" alt="Post Image" class="small-image"/>
+        <p>{{ post.postCaption }}</p>
+        <button class="p-button p-button-danger" (click)="deletePost(post._id)">Delete</button>
+      </li>
+    </ul>
+  </div>
+</div>

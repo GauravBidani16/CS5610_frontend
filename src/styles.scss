@@ -1,9 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import "primeicons/primeicons.css";
 
 
 .basic-border {
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 0px;
+}
+
+.aspect-ratio-1 {
+  aspect-ratio: 1 / 1;
+}
+
+.basic-link:hover {
+  // text-decoration: underline;
+  opacity: 0.7;
+}
+
+.object-fit-scale-down {
+  object-fit: scale-down;
+}
+
+.bg-light-grey {
+  background-color: #e3e3e3;
 }

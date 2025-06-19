@@ -6,6 +6,27 @@
     <p>Following: {{ profileData.followingCount }}</p>
     <p>Posts: {{ profileData.postCount }}</p>
 
+    <button *ngIf="isLoggedIn && !isFollowing" class="p-button" (click)="followUser()">Follow</button>
+    <button *ngIf="isLoggedIn && isFollowing" class="p-button p-button-secondary" (click)="unfollowUser()">Unfollow</button>
+
+    <h3>Followers</h3>
+    <ul *ngIf="profileData.followers.length > 0">
+      <li *ngFor="let follower of profileData.followers">
+        <img [src]="follower.profilepic" alt="Profile Picture" class="small-profile-pic"/>
+        <a [routerLink]="'/profile/' + follower.username">{{ follower.username }}</a>
+      </li>
+    </ul>
+    <p *ngIf="profileData.followers.length === 0">No followers yet.</p>
+
+    <h3>Following</h3>
+    <ul *ngIf="profileData.following.length > 0">
+      <li *ngFor="let followingUser of profileData.following">
+        <img [src]="followingUser.profilepic" alt="Profile Picture" class="small-profile-pic"/>
+        <a [routerLink]="'/profile/' + followingUser.username">{{ followingUser.username }}</a>
+      </li>
+    </ul>
+    <p *ngIf="profileData.following.length === 0">Not following anyone yet.</p>
+
     <div *ngIf="canViewPosts">
       <h3>User Posts</h3>
       <ul>

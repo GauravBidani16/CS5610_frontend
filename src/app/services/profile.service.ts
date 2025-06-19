@@ -24,5 +24,34 @@ export class ProfileService {
     return this.http.post<any>(`${this.apiUrl}/unfollow/${username}`, {});
   }
 
+  getFollowers(username: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/followers/${username}`);
+  }
+
+  getFollowing(username: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/following/${username}`);
+  }
+
+  createPost(file: File, caption: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('postCaption', caption);
+    return this.http.post<any>(`${environment.apiUrl}/post`, formData);
+  }
+
+  /** Fetch the current user's profile */
+  getCurrentUserProfile(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/current`);
+  }
+
+  /** Update the user's profile */
+  updateProfile(data: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/update`, data);
+  }
+
+  /** Delete a post by its ID */
+  deletePost(postId: string): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}/post/${postId}`);
+  }
 
 }

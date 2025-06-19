@@ -14,8 +14,20 @@ export const routes = [
     loadComponent: () => import('./components/register/register.component').then(m => m.RegisterComponent)
   },
   {
+    path: 'home',
+    loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent)
+  },
+  {
     path: 'profile/:username',
     loadComponent: () => import('./components/profile/profile.component').then(m => m.ProfileComponent)
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./components/my-profile/my-profile.component').then(m => m.MyProfileComponent)
+  },
+  {
+    path: 'unsplash',
+    loadComponent: () => import('./components/unsplash/unsplash.component').then(m => m.UnsplashComponent)
   },
   {
     path: '',

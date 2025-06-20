@@ -86,4 +86,17 @@ export class AuthService {
       return null;
     }
   }
+
+  getUserDetails(): string | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken;
+    } catch (error) {
+      console.error('Invalid token:', error);
+      return null;
+    }
+  }
 }

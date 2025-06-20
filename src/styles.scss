@@ -1,7 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import "primeicons/primeicons.css";
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 
 
 .basic-border {
@@ -23,5 +35,33 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .bg-light-grey {
-  background-color: #e3e3e3;
+  background-color: #f3f3f3;
+}
+
+// .p-image-preview:hover > .p-image-preview-mask {
+//   // opacity: 0.5;
+// }
+
+// .hover-opacity-75 {
+//   transition: opacity 0.3s ease;
+// }
+
+// .hover-opacity-75:hover {
+//   opacity: 0.75;
+// }
+
+.dp-span {
+  border-radius: 50% !important;
+}
+
+.dp-span button {
+  border-radius: 50% !important;
+}
+
+.max-h-50rem {
+  max-height: 50rem !important;
+}
+
+.object-fit-cover {
+  object-fit: cover;
 }

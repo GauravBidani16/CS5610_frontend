@@ -9,6 +9,11 @@ import { PasswordModule } from 'primeng/password';
 import { SelectModule } from 'primeng/select';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { RippleModule } from 'primeng/ripple';
+import { ImageModule } from 'primeng/image';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [],
@@ -26,7 +31,10 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     PasswordModule,
     SelectModule,
     InputGroupModule,
-    InputGroupAddonModule
+    InputGroupAddonModule,
+    RippleModule,
+    ImageModule,
+    DynamicDialogModule
   ],
 })
 export class PrimeNGModule { }

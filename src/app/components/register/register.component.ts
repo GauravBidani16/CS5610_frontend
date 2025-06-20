@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { PrimeNGModule } from '../../shared/prime-ng/prime-ng.module';
@@ -27,7 +27,7 @@ export class RegisterComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    role: new FormControl('PUBLIC_USER', Validators.required), // Default role: 'user'
+    role: new FormControl('PUBLIC_USER', Validators.required),
     bio: new FormControl('', Validators.maxLength(500)),
     file: new FormControl<File | null>(null, Validators.required)
   });

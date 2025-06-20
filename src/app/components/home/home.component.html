@@ -4,13 +4,12 @@
   </div>
   <div class="col-12 col-offset-0>">
     <div *ngFor="let post of posts">
-      <div class="col-8 col-offset-2">
-        <div class="col-8">
-
+      <div class="col-8 col-offset-2 py-0">
+        <div class="col-8 py-0">
           <div class="col-12">
             <div class="grid align-items-center">
-              <div class="col-1 align-items-center">
-                <img [src]="post.author.profilepic" alt="Author DP" class="aspect-ratio-1 border-circle w-10" />
+              <div class="col-1 align-items-center w-4rem">
+                <img [src]="post.author.profilepic" alt="Author DP" class="aspect-ratio-1 border-circle w-full" />
               </div>
               <div class="col-11" [routerLink]="'/profile/' + post.author.username"
                 class="basic-link font-medium cursor-pointer">
@@ -39,6 +38,17 @@
             </div>
           </div>
           <div class="col-12 px-0">
+            <div *ngFor="let comment of post.comments">
+              <div class="flex align-items-center justify-content-start gap-2">
+                <div class="w-2rem">
+                  <img [src]="comment.author.profilepic" alt="Commentor DP" class="aspect-ratio-1 border-circle w-full" />
+                </div>
+                <div class="font-medium">{{ comment.author?.username }}</div>
+                <div class="font-light">{{ comment.text }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 px-0">
             <div class="w-full">
               <p-iftalabel>
                 <p-inputGroup>
@@ -50,6 +60,9 @@
                 </p-inputGroup>
               </p-iftalabel>
             </div>
+          </div>
+          <div class="col-12 px-0">
+            <p-divider></p-divider>
           </div>
         </div>
       </div>

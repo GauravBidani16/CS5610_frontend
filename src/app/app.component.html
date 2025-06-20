@@ -1,8 +1,26 @@
-<div class="container grid w-full">
-  <div class="col-12 col-offset-0 sm:col-12 sm:col-offset-0 md:col-8 md:col-offset-2">
+<!-- <div class="container grid m-0 w-full"> -->
+<!-- <p-toast position="top-right"></p-toast> -->
+<!-- <div class="col-12 col-offset-0 sm:col-12 sm:col-offset-0 md:col-10 md:col-offset-1">
     <app-navbar></app-navbar>
+  </div> -->
+<!-- <div class="lg:col-2 md:col-3 sm:col-3 h-screen p-0 border-right-1 border-200">
+    <app-sidenav></app-sidenav>
   </div>
-  <div class="col-12 col-offset-0 sm:col-12 sm:col-offset-0 md:col-8 md:col-offset-2">
-    <router-outlet></router-outlet>
+  <div class="col-10">
+    <div class="py-8">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="flex h-screen overflow-hidden">
+  <div class="flex-shrink-0 sm:w-3 md:w-3 lg:w-2 h-full p-0 border-right-1 border-200">
+    <app-sidenav></app-sidenav>
+  </div>
+  <div class="flex-grow w-full sm:w-9 md:w-9 lg:w-10 overflow-y-auto">
+    <div class="py-8 px-4">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>

@@ -4,27 +4,34 @@ import { PrimeNGModule } from '../../shared/prime-ng/prime-ng.module';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ProfileService } from '../../services/profile.service';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { UpdateProfileComponent } from '../update-profile/update-profile.component';
 
 @Component({
   selector: 'app-my-profile',
   imports: [CommonModule, PrimeNGModule, RouterModule],
   templateUrl: './my-profile.component.html',
-  styleUrl: './my-profile.component.scss'
+  styleUrl: './my-profile.component.scss',
+  providers: [DialogService],
 })
 export class MyProfileComponent {
   profileData: any = {};
   isLoggedIn = false;
   newPostCaption: string = '';
   uploadedFile: File | null = null;
+  ref: DynamicDialogRef | undefined;
+  currentUserDetails: any = {};
 
   constructor(
     private router: Router,
     private profileService: ProfileService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    public dialogService: DialogService,
+  ) { }
 
   ngOnInit() {
     this.isLoggedIn = this.authService.isAuthenticated();
+    this.currentUserDetails = this.authService.getUserDetails();
 
     if (!this.isLoggedIn) {
       this.router.navigate(['/login']);
@@ -43,9 +50,11 @@ export class MyProfileComponent {
     });
   }
 
-  updateProfile() {
-    this.profileService.updateProfile(this.profileData).subscribe({
-      next: () => console.log('Profile updated successfully'),
+  updateProfile(updatedProfileData: any) {
+    this.profileService.updateProfile(updatedProfileData).subscribe({
+      next: () => {
+        this.profileData = { ...this.profileData, ...updatedProfileData };
+      },
       error: (err) => console.error('Profile update failed:', err)
     });
   }
@@ -74,6 +83,30 @@ export class MyProfileComponent {
         error: (err) => console.error('Post creation failed:', err)
       });
     }
+  }
+
+  show() {
+    this.ref = this.dialogService.open(UpdateProfileComponent, {
+      header: 'Update user profile',
+      width: '50vw',
+      modal: true,
+      closable: true,
+      contentStyle: { overflow: 'auto' },
+      breakpoints: {
+        '960px': '75vw',
+        '640px': '90vw'
+      },
+      data: {
+        currentUserData: this.profileData,
+      }
+    });
+
+    this.ref.onClose.subscribe((data: any) => {
+      if (data) {
+        const updatedProfileData = { ...data };
+        this.updateProfile(updatedProfileData);
+      }
+    });
   }
 
 }

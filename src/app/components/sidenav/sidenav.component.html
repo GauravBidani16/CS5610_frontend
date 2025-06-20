@@ -1,0 +1,92 @@
+<div class="h-full p-4">
+  <div class="h-full flex flex-column justify-content-between gap-3">
+
+    <div class="flex flex-column gap-6 h-full">
+      <div class="text-center">
+        <h2>ShakyGram</h2>
+      </div>
+
+      <div>
+        <div class="flex flex-column align-items-center gap-3">
+          <div class="cursor-pointer w-full flex align-items-end gap-3 p-2 hover:bg-gray-100" (click)="navigateToPage('home')">
+            <div>
+              <i class="pi pi-home text-xl"></i>
+            </div>
+            <div class="text-xl font-light">
+              Home
+            </div>
+          </div>
+
+          <div class="cursor-pointer w-full flex align-items-end gap-3 p-2 hover:bg-gray-100" (click)="navigateToPage('search')">
+            <div>
+              <i class="pi pi-search text-xl"></i>
+            </div>
+            <div class="text-xl font-light">
+              Search
+            </div>
+          </div>
+
+          <div class="cursor-pointer w-full flex align-items-end gap-3 p-2 hover:bg-gray-100">
+            <div>
+              <i class="pi pi-compass text-xl"></i>
+            </div>
+            <div class="text-xl font-light">
+              Explore
+            </div>
+          </div>
+
+          <div class="cursor-pointer w-full flex align-items-end gap-3 p-2 hover:bg-gray-100">
+            <div>
+              <i class="pi pi-bookmark text-xl"></i>
+            </div>
+            <div class="text-xl font-light">
+              Saved
+            </div>
+          </div>
+
+          <div class="cursor-pointer w-full flex align-items-end gap-3 p-2 hover:bg-gray-100">
+            <div>
+              <i class="pi pi-heart text-xl"></i>
+            </div>
+            <div class="text-xl font-light">
+              Likes
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div>
+      <div class="flex flex-column gap-3">
+        <div *ngIf="!isLoggedIn" class="cursor-pointer w-full flex align-items-center gap-3 p-2 hover:bg-gray-100" (click)="navigateToPage('profile')">
+          <div>
+            <i *ngIf="!isLoggedIn || !currentUserDetails?.profilepic" class="pi pi-user text-xl"></i>
+            <img *ngIf="isLoggedIn && currentUserDetails?.profilepic" [src]="currentUserDetails?.profilepic"
+              class="aspect-ratio-1 border-circle w-2rem">
+          </div>
+          <div class="text-xl font-light">
+            {{ isLoggedIn && currentUserDetails?.username ? "Welcome, " + currentUserDetails?.username : "Profile"}}
+          </div>
+        </div>
+
+        <div *ngIf="isLoggedIn" class="cursor-pointer w-full flex align-items-end gap-3 p-2 hover:bg-gray-100" (click)="navigateToPage('login')">
+          <div>
+            <i class="pi pi-sign-in text-xl"></i>
+          </div>
+          <div class="text-xl font-light">
+            Login
+          </div>
+        </div>
+
+        <div *ngIf="isLoggedIn" class="cursor-pointer w-full flex align-items-end gap-3 p-2 hover:bg-gray-100" (click)="navigateToPage('register')">
+          <div>
+            <i class="pi pi-users text-xl"></i>
+          </div>
+          <div class="text-xl font-light">
+            Register
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

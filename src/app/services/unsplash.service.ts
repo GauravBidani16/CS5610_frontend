@@ -16,7 +16,7 @@ export class UnsplashService {
     }
   }
 
-  searchPhotos(query: string, page: number = 1, perPage: number = 10): Observable<any> {
+  searchPhotos(query: string, page: number = 1, perPage: number = 30): Observable<any> {
     let params = new HttpParams()
       .set('query', query)
       .set('page', page.toString())
@@ -24,6 +24,15 @@ export class UnsplashService {
       .set('client_id', this.accessKey);
 
     return this.http.get<any>(`${this.apiUrl}/search/photos`, { params });
+  }
+
+  getPhotos(page: number = 1, perPage: number = 30): Observable<any[]> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('per_page', perPage.toString())
+      .set('client_id', this.accessKey);
+
+    return this.http.get<any[]>(`${this.apiUrl}/photos`, { params });
   }
 
   private handleError(error: any): Observable<never> {

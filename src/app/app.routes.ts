@@ -1,3 +1,4 @@
+import { SearchComponent } from './components/search/search.component';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
 
@@ -29,6 +30,8 @@ export const routes = [
     path: 'unsplash',
     loadComponent: () => import('./components/unsplash/unsplash.component').then(m => m.UnsplashComponent)
   },
+  { path: 'search', component: SearchComponent },
+  { path: 'search/:query', component: SearchComponent },
   {
     path: '',
     pathMatch: 'full' as const,

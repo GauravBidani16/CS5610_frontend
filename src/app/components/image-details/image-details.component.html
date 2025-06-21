@@ -1,0 +1,42 @@
+<div class="container grid w-full">
+  <div class="col-12">
+    <h2 class="font-medium">Unsplash Image Details</h2>
+  </div>
+
+  <div class="col-12">
+    <div class="grid m-0">
+      <div class="col-6">
+        <div class="w-full">
+          <p-image [src]="imageDetails.urls.regular" alt="Image" styleClass="cursor-pointer"
+            imageClass="w-full aspect-ratio-1 object-fit-cover">
+          </p-image>
+        </div>
+      </div>
+      <div class="col-6 p-6">
+        <div class="flex flex-column justify-content-between h-full">
+          <div class="flex flex-column gap-3">
+            <div>
+              <span class="font-medium font-italic text-xl">Photo by : </span>
+              <span class="font-light font-italic text-xl">{{ imageDetails.user.name }}</span>
+            </div>
+            <div>
+              <span class="font-medium font-italic text-xl">Description : </span>
+              <span class="font-light font-italic text-xl">{{ imageDetails.description ? imageDetails.description : imageDetails.alt_description }}</span>
+            </div>
+          </div>
+
+          <div class="flex flex-column gap-3">
+            <div>
+              <span class="font-medium font-italic text-xl">Tags : </span>
+            </div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span *ngFor="let tag of imageDetails.tags">
+                <p-chip [label]="tag.title"></p-chip>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

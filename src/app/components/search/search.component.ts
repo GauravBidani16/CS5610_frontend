@@ -83,12 +83,29 @@ export class SearchComponent {
       .subscribe(response => {
         if (response) { 
           this.images = response;
+          console.log(this.images[0]);
+          
           if (this.images.length > 0) {
-              console.log('Showing Random Photos', 'No search query provided. Enjoy these random images!');
+            this.isLoading = false;
+            console.log('Showing Random Photos', 'No search query provided. Enjoy these random images!');
           } else {
               console.log('No Random Photos', 'Could not load random images at this time.');
           }
         }
       });
+  }
+
+  searchById(pictureId: string) {
+    this.unsplashService.getPhotoById(pictureId).subscribe(response => {
+      if (response) {
+        console.log("PhotoById", response);
+      }
+    })
+  }
+
+  redirectToDetailsPage(pictureId: string) {
+    if(pictureId) {
+      this.router.navigate([`/details/${pictureId}`])
+    }
   }
 }

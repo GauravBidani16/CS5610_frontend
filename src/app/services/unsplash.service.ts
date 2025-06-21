@@ -35,6 +35,13 @@ export class UnsplashService {
     return this.http.get<any[]>(`${this.apiUrl}/photos`, { params });
   }
 
+  getPhotoById(pictureId: string): Observable<any[]> {
+    let params = new HttpParams()
+      .set('client_id', this.accessKey);
+
+    return this.http.get<any[]>(`${this.apiUrl}/photos/${pictureId}`, { params });
+  }
+
   private handleError(error: any): Observable<never> {
     let errorMessage = 'An unknown error occurred!';
     if (error.error instanceof ErrorEvent) {

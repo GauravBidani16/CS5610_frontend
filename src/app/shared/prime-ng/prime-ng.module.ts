@@ -12,6 +12,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { RippleModule } from 'primeng/ripple';
 import { ImageModule } from 'primeng/image';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ChipModule } from 'primeng/chip';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { BrowserModule } from '@angular/platform-browser';
 
@@ -34,7 +35,8 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
     InputGroupAddonModule,
     RippleModule,
     ImageModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    ChipModule
   ],
 })
 export class PrimeNGModule { }

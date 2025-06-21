@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeicons/primeicons.css";
+
 html,
 body {
   height: 100%;
@@ -64,4 +65,19 @@ body {
 
 .object-fit-cover {
   object-fit: cover;
+}
+
+.object-fit-contain {
+  object-fit: contain;
+}
+
+.aspect-ratio-6-1 {
+  aspect-ratio: 6 / 1;
+}
+
+.pattern-background {
+  background: radial-gradient(circle, #f6f6f6 10%, transparent 11%), radial-gradient(circle at bottom left, #f6f6f6 5%, transparent 6%), radial-gradient(circle at bottom right, #f6f6f6 5%, transparent 6%), radial-gradient(circle at top left, #f6f6f6 5%, transparent 6%), radial-gradient(circle at top right, #f6f6f6 5%, transparent 6%);
+  background-size: 3em 3em;
+  background-color: #ffffff;
+  opacity: 1
 }

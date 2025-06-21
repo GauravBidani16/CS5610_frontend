@@ -1,3 +1,4 @@
+import { ImageDetailsComponent } from './components/image-details/image-details.component';
 import { SearchComponent } from './components/search/search.component';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
@@ -32,10 +33,11 @@ export const routes = [
   },
   { path: 'search', component: SearchComponent },
   { path: 'search/:query', component: SearchComponent },
+  { path: 'details/:query', component: ImageDetailsComponent },
   {
     path: '',
     pathMatch: 'full' as const,
-    redirectTo: '/register'
+    redirectTo: '/home'
   },
 
   // { path: 'login', loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent) },

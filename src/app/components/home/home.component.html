@@ -1,6 +1,7 @@
 <div class="container grid w-full">
   <div class="col-12 col-offset-0 sm:col-12 sm:col-offset-0 md:col-8 md:col-offset-2">
     <h3>Home Feed</h3>
+    <p-button icon="pi pi-check" severity="secondary" variant="text" (click)="showToast()"></p-button>
   </div>
   <div class="col-12 col-offset-0>">
     <div *ngFor="let post of posts">
@@ -34,7 +35,7 @@
           <div class="col-12 px-0">
             <div class="flex align-items-center justify-content-start gap-1">
               <div class="font-medium">{{ post.author.username }}</div>
-              <div class="font-light">{{ post.postCaption }}</div>
+              <div class="font-light">{{ post.postCaption === "" ? "No Caption" : post.postCaption }}</div>
             </div>
           </div>
           <div class="col-12 px-0">

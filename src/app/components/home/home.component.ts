@@ -22,9 +22,13 @@ export class HomeComponent {
     private postService: PostService,
     private authService: AuthService,
     private snackbarService: SnackbarService
-  ) {}
+  ) { }
 
   ngOnInit() {
+    this.activate();
+  }
+
+  activate() {
     this.isLoggedIn = this.authService.isAuthenticated();
     this.currentUserDetails = this.authService.getUserDetails();
     this.fetchPublicPosts();
@@ -35,8 +39,24 @@ export class HomeComponent {
       next: (data) => {
         this.posts = data.data;
         console.log(this.posts);
+        if (this.isLoggedIn) {
+          this.fetchFeedPosts()
+        }
       },
       error: (err) => console.error("Error fetching public posts:", err)
+    });
+  }
+
+  fetchFeedPosts() {
+    this.postService.getFeedPosts().subscribe({
+      next: (data) => {
+        this.posts = [...data.data, ...this.posts];
+        console.log(this.posts);
+      },
+      error: (err) => {
+        console.error("Error fetching feed posts:", err)
+        this.authService.logout();
+      }
     });
   }
 
@@ -66,10 +86,14 @@ export class HomeComponent {
     this.postService.addComment(postId, text).subscribe({
       next: (comment) => {
         const post = this.posts.find(p => p._id === postId);
-        if (post) post.comments.push({author: {...this.currentUserDetails}, text: comment.data.text});
+        if (post) post.comments.push({ author: { ...this.currentUserDetails }, text: comment.data.text });
       },
       error: (err) => console.error("Error adding comment:", err)
     });
+  }
+
+  showToast() {
+    this.snackbarService.showToast("Test Toast msg");
   }
 
 }

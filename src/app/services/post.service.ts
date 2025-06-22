@@ -16,6 +16,10 @@ export class PostService {
     return this.http.get<any>(`${this.postUrl}/public`);
   }
 
+  getFeedPosts() :Observable<any> {
+    return this.http.get<any>(`${this.postUrl}/feed`)
+  }
+
   likePost(postId: string): Observable<any> {
     return this.http.post<any>(`${this.postUrl}/${postId}/like`, {});
   }

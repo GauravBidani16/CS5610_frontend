@@ -1,4 +1,78 @@
-<div class="flex justify-content-center">
+<div class="container grid w-full">
+  <div class="col-12">
+    <div class="lg:col-10 lg:col-offset-1 col-12 col-offset-0 pb-6">
+      <div class="grid">
+        <div class="lg:col-3 lg:col-offset-0 md:col-3 md:col-offset-0 sm:col-4 sm:col-offset-2 sm:col-6 col-3 col-offset-0">
+          <div>
+            <p-image [src]="profileData.profilepic" [preview]="true" alt="Image"
+              styleClass="hover-opacity-75 cursor-pointer border-circle dp-span"
+              imageClass="w-full aspect-ratio-1 border-circle">
+            </p-image>
+          </div>
+        </div>
+        <div class="lg:col-9 md:col-9 md:col-offset-0 sm:col-10 sm:col-offset-1 col-12 py-6">
+          <div class="flex flex-column gap-4 lg:px-4 sm:px-1">
+            <div class="flex align-items-center gap-6 sm:justify-content-between md:justify-content-start">
+              <div class="font-medium text-2xl">{{ profileData.username }}</div>
+              <div class="flex align-items-center gap-2">
+                <p-button *ngIf="isLoggedIn && !isFollowing" label="Follow" icon="pi pi-star-fill" severity="contrast" (onClick)="followUser()"/>
+                <p-button *ngIf="isLoggedIn && isFollowing" label="Unfollow" icon="pi pi-star" severity="secondary" (onClick)="unfollowUser()" />
+              </div>
+            </div>
+
+            <div class="flex align-items-center lg:gap-8 sm:gap-6 sm:justify-content-between md:justify-content-start">
+              <div class="flex flex-column align-items-center gap-2">
+                <div class="font-medium text-xl">Posts</div>
+                <div class="text-lg">{{ profileData.postCount || 0 }}</div>
+              </div>
+              <div class="flex flex-column align-items-center gap-2">
+                <div class="font-medium text-xl">Followers</div>
+                <div class="text-lg">{{ profileData.followerCount || 0 }}</div>
+              </div>
+              <div class="flex flex-column align-items-center gap-2">
+                <div class="font-medium text-xl">Following</div>
+                <div class="text-lg">{{ profileData.followingCount || 0 }}</div>
+              </div>
+            </div>
+            <div>
+              <div class="font-medium">{{ profileData.firstname + " " + profileData.lastname }}</div>
+              <div class="font-light py-2">{{ profileData?.bio || "" }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="canViewPosts" class="col-10 col-offset-1">
+      <div class="grid">
+        <div *ngFor="let post of profileData.posts" class="xl:col-4 lg:col-6 md:col-6 sm:col-12 col-12 p-1">
+          <p-image [src]="post.postUrl" [preview]="true" alt="Image" styleClass="cursor-pointer"
+            imageClass="w-full aspect-ratio-1">
+            <ng-template #preview let-style="style" let-previewCallback="previewCallback">
+              <div>
+                <div>
+                  <img [src]="post.postUrl" alt="image" [style]="style" style="max-height: 50rem;"
+                  (click)="previewCallback()" />
+                </div>
+                <div>
+                  <h3 class="text-center">Image Preview</h3>
+                </div>
+              </div>
+            </ng-template>
+          </p-image>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- <div class="flex justify-content-center">
   <div class="card p-4 w-8">
     <img [src]="profileData.profilepic" alt="Profile Picture" class="profile-pic"/>
     <h2>{{ profileData.username }}</h2>
@@ -35,4 +109,4 @@
     </div>
     <p *ngIf="!canViewPosts">Posts are private.</p>
   </div>
-</div>
+</div> -->

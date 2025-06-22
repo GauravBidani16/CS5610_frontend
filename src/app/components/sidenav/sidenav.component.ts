@@ -21,12 +21,21 @@ export class SidenavComponent {
   ) {}
 
   ngOnInit() {
-    this.activate();
+    this.authService.isLoggedIn$.subscribe((status) => {
+      this.isLoggedIn = status;
+      this.activate();
+    });
+
   }
 
   activate() {
-    this.isLoggedIn = this.authService.isAuthenticated();
+    // this.isLoggedIn = this.authService.isAuthenticated();
     this.currentUserDetails = this.authService.getUserDetails();
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/home'])
   }
 
   navigateToPage(path: string) {

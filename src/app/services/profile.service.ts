@@ -16,12 +16,16 @@ export class ProfileService {
     return this.http.get<any>(`${this.apiUrl}/${username}`);
   }
 
+  getAllUsers(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}`);
+  }
+
   followUser(username: string): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/follow/${username}`, {});
   }
 
   unfollowUser(username: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/unfollow/${username}`, {});
+    return this.http.delete<any>(`${this.apiUrl}/unfollow/${username}`, {});
   }
 
   getFollowers(username: string): Observable<any> {
@@ -52,6 +56,10 @@ export class ProfileService {
   /** Delete a post by its ID */
   deletePost(postId: string): Observable<any> {
     return this.http.delete<any>(`${environment.apiUrl}/post/${postId}`);
+  }
+
+  deleteUser(username: string): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}/user/${username}`);
   }
 
 }

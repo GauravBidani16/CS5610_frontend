@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap } from 'rxjs';
 import { throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { jwtDecode } from 'jwt-decode';
@@ -9,11 +9,16 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthService {
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.isAuthenticated());
+  public isLoggedIn$ = this.isLoggedInSubject.asObservable();
+
   private apiUrl = environment.apiUrl + '/auth/login';
   private refreshUrl = environment.apiUrl + '/auth/refresh';
   private registerUrl = environment.apiUrl + '/auth/register';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   login(username: string, password: string): Observable<{ data: { accessToken: string } }> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -42,6 +47,7 @@ export class AuthService {
 
   storeToken(token: string) {
     sessionStorage.setItem('accessToken', token);
+    this.isLoggedInSubject.next(true);
   }
 
   getToken(): string | null {
@@ -59,6 +65,7 @@ export class AuthService {
 
   logout() {
     sessionStorage.removeItem('accessToken');
+    this.isLoggedInSubject.next(false);
   }
 
   getUserRole(): string | null {

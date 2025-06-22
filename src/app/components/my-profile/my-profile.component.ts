@@ -46,7 +46,10 @@ export class MyProfileComponent {
       next: (data) => {
         this.profileData = data.data;
       },
-      error: (err) => console.error('Error fetching profile:', err)
+      error: (err) => {
+        console.error('Error fetching profile:', err)
+        this.authService.logout();
+      }
     });
   }
 
@@ -70,19 +73,33 @@ export class MyProfileComponent {
 
 
   updateFile(event: any) {
-    this.uploadedFile = event.target.files[0];
+    this.uploadedFile = event.files[0];
   }
+
+  clearFile() {
+    this.uploadedFile = null
+  }
+
   createPost() {
     // const file = event.target.files[0];
     const file = this.uploadedFile;
     if (file) {
       this.profileService.createPost(file, this.newPostCaption).subscribe({
         next: (post) => {
-          this.profileData.posts.push(post);
+          this.profileData.posts.push(post.data);
         },
         error: (err) => console.error('Post creation failed:', err)
       });
     }
+  }
+
+  getAllUsers() {
+    this.profileService.getAllUsers().subscribe({
+      next: (res) => {
+        console.log(res);
+        },
+        error: (err) => console.error('Fetching all users failed.', err)
+    });
   }
 
   show() {

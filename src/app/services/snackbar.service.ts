@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject } from 'rxjs';
 // import { MessageService } from 'primeng/api';
 
 
@@ -7,6 +8,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root'
 })
 export class SnackbarService {
+
+  private showToastSubject = new BehaviorSubject<any>({});
+  public showToast$ = this.showToastSubject.asObservable();
 
   constructor(
     private snackBar: MatSnackBar,
@@ -21,6 +25,17 @@ export class SnackbarService {
       // panelClass: ['snackbar-style']
     });
   }
+
+  showToast(detail: string, summary: string = 'Success', severity: string = 'success') {
+    const toastObject = {
+      detail,
+      summary,
+      severity
+    }
+    this.showToastSubject.next(toastObject);
+  }
+
+
 
   // showSuccess(detail: string, summary: string = "success", life: number = 3000): void {
   //   this.messageService.add({ severity: 'success', summary: summary, detail: detail, life: life });

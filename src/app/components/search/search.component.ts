@@ -16,13 +16,13 @@ export class SearchComponent {
 
   query: string = '';
   images: any[] = [];
-  isLoading: boolean = false; 
+  isLoading: boolean = false;
   routeSubscription!: Subscription;
   currentMode: 'random' | 'search' = 'random';
 
   constructor(
-     private activatedRoute: ActivatedRoute,
-    private router: Router,               
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
     private unsplashService: UnsplashService,
   ) { }
 
@@ -81,15 +81,15 @@ export class SearchComponent {
 
     this.unsplashService.getPhotos(1, 30)
       .subscribe(response => {
-        if (response) { 
+        if (response) {
           this.images = response;
           console.log(this.images[0]);
-          
+
           if (this.images.length > 0) {
             this.isLoading = false;
             console.log('Showing Random Photos', 'No search query provided. Enjoy these random images!');
           } else {
-              console.log('No Random Photos', 'Could not load random images at this time.');
+            console.log('No Random Photos', 'Could not load random images at this time.');
           }
         }
       });
@@ -104,7 +104,7 @@ export class SearchComponent {
   }
 
   redirectToDetailsPage(pictureId: string) {
-    if(pictureId) {
+    if (pictureId) {
       this.router.navigate([`/details/${pictureId}`])
     }
   }

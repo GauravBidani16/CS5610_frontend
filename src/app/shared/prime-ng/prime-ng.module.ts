@@ -15,6 +15,8 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ChipModule } from 'primeng/chip';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { BrowserModule } from '@angular/platform-browser';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [],
@@ -36,7 +38,9 @@ import { ChipModule } from 'primeng/chip';
     RippleModule,
     ImageModule,
     DynamicDialogModule,
-    ChipModule
+    ChipModule,
+    FileUploadModule,
+    ConfirmDialogModule
   ],
 })
 export class PrimeNGModule { }

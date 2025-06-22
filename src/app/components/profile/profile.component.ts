@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProfileService } from '../../services/profile.service';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
@@ -19,18 +19,25 @@ export class ProfileComponent {
   isFollowing = false;
   canViewPosts = false;
   isAdmin = false;
+  currentUserDetails: any = {};
 
   constructor(
     private route: ActivatedRoute,
     private profileService: ProfileService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.username = this.route.snapshot.paramMap.get('username')!;
     this.isLoggedIn = this.authService.isAuthenticated();
+    this.currentUserDetails = this.authService.getUserDetails();
     this.isAdmin = this.authService.getUserRole() === 'ADMIN';
 
+    if (this.isLoggedIn && this.currentUserDetails.username === this.username) {
+      this.router.navigate(['/profile']);
+      return;
+    }
     this.loadProfile();
   }
   loadProfile() {
@@ -44,7 +51,7 @@ export class ProfileComponent {
           posts: data.data.posts
         };
 
-        this.isFollowing = this.profileData.followers.includes(this.authService.getUsername());
+        this.isFollowing = this.profileData.followers.includes(this.currentUserDetails?._id);
         this.canViewPosts = this.profileData.role === 'PUBLIC_USER' || this.isFollowing || this.isAdmin;
       },
       error: (err) => console.error('Error fetching profile:', err)
@@ -56,6 +63,7 @@ export class ProfileComponent {
       next: () => {
         this.isFollowing = true;
         this.profileData.followers.push(this.authService.getUsername());
+        this.canViewPosts = this.profileData.role === 'PUBLIC_USER' || this.isFollowing || this.isAdmin;
       },
       error: (err) => console.error('Follow failed:', err)
     });
@@ -66,6 +74,7 @@ export class ProfileComponent {
       next: () => {
         this.isFollowing = false;
         this.profileData.followers = this.profileData.followers.filter((user: string | null) => user !== this.authService.getUsername());
+        this.canViewPosts = this.profileData.role === 'PUBLIC_USER' || this.isFollowing || this.isAdmin;
       },
       error: (err) => console.error('Unfollow failed:', err)
     });

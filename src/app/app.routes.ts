@@ -1,3 +1,4 @@
+import { AdminComponent } from './components/admin/admin.component';
 import { ImageDetailsComponent } from './components/image-details/image-details.component';
 import { SearchComponent } from './components/search/search.component';
 import { authGuard } from './guards/auth.guard';
@@ -34,6 +35,7 @@ export const routes = [
   { path: 'search', component: SearchComponent },
   { path: 'search/:query', component: SearchComponent },
   { path: 'details/:query', component: ImageDetailsComponent },
+  { path: 'admin', component: AdminComponent },
   {
     path: '',
     pathMatch: 'full' as const,

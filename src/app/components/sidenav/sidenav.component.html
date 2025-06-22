@@ -52,13 +52,22 @@
               Likes
             </div>
           </div>
+
+          <div *ngIf="currentUserDetails && currentUserDetails.role === 'ADMIN'" class="cursor-pointer w-full flex align-items-end gap-3 p-2 hover:bg-gray-100" (click)="navigateToPage('admin')">
+            <div>
+              <i class="pi pi-chart-bar text-xl"></i>
+            </div>
+            <div class="text-xl font-light">
+              Admin
+            </div>
+          </div>
         </div>
       </div>
 
     </div>
     <div>
       <div class="flex flex-column gap-3">
-        <div *ngIf="!isLoggedIn" class="cursor-pointer w-full flex align-items-center gap-3 p-2 hover:bg-gray-100" (click)="navigateToPage('profile')">
+        <div *ngIf="isLoggedIn" class="cursor-pointer w-full flex align-items-center gap-3 p-2 hover:bg-gray-100" (click)="navigateToPage('profile')">
           <div>
             <i *ngIf="!isLoggedIn || !currentUserDetails?.profilepic" class="pi pi-user text-xl"></i>
             <img *ngIf="isLoggedIn && currentUserDetails?.profilepic" [src]="currentUserDetails?.profilepic"
@@ -69,7 +78,16 @@
           </div>
         </div>
 
-        <div *ngIf="isLoggedIn" class="cursor-pointer w-full flex align-items-end gap-3 p-2 hover:bg-gray-100" (click)="navigateToPage('login')">
+        <div *ngIf="isLoggedIn" class="cursor-pointer w-full flex align-items-end gap-3 p-2 hover:bg-gray-100" (click)="logout()">
+          <div>
+            <i class="pi pi-sign-out text-xl"></i>
+          </div>
+          <div class="text-xl font-light">
+            Logout
+          </div>
+        </div>
+
+        <div *ngIf="!isLoggedIn" class="cursor-pointer w-full flex align-items-end gap-3 p-2 hover:bg-gray-100" (click)="navigateToPage('login')">
           <div>
             <i class="pi pi-sign-in text-xl"></i>
           </div>
@@ -78,7 +96,7 @@
           </div>
         </div>
 
-        <div *ngIf="isLoggedIn" class="cursor-pointer w-full flex align-items-end gap-3 p-2 hover:bg-gray-100" (click)="navigateToPage('register')">
+        <div *ngIf="!isLoggedIn" class="cursor-pointer w-full flex align-items-end gap-3 p-2 hover:bg-gray-100" (click)="navigateToPage('register')">
           <div>
             <i class="pi pi-users text-xl"></i>
           </div>

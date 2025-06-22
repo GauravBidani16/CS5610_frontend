@@ -2,7 +2,8 @@
   <div class="col-12">
     <div class="lg:col-10 lg:col-offset-1 col-12 col-offset-0 pb-6">
       <div class="grid">
-        <div class="lg:col-3 lg:col-offset-0 md:col-3 md:col-offset-0 sm:col-4 sm:col-offset-2 sm:col-6 col-3 col-offset-0">
+        <div
+          class="lg:col-3 lg:col-offset-0 md:col-3 md:col-offset-0 sm:col-4 sm:col-offset-2 sm:col-6 col-3 col-offset-0">
           <div>
             <p-image [src]="profileData.profilepic" [preview]="true" alt="Image"
               styleClass="hover-opacity-75 cursor-pointer border-circle dp-span"
@@ -15,8 +16,9 @@
             <div class="flex align-items-center gap-6 sm:justify-content-between md:justify-content-start">
               <div class="font-medium text-2xl">{{ profileData.username }}</div>
               <div class="flex align-items-center gap-2">
-                <p-button label="Edit Profile" icon="pi pi-pencil" severity="secondary" (onClick)="show()"/>
+                <p-button label="Edit Profile" icon="pi pi-pencil" severity="secondary" (onClick)="show()" />
                 <p-button label="Unsplash likes" icon="pi pi-bookmark-fill" severity="secondary" />
+                <p-button label="Get all" icon="pi pi-pencil" severity="secondary" (onClick)="getAllUsers()" />
               </div>
             </div>
 
@@ -43,6 +45,15 @@
       </div>
     </div>
 
+    <div class="col-10">
+      <p-fileupload (onSelect)="updateFile($event)" (uploadHandler)="createPost()" (onClear)="clearFile()"
+        accept="image/*" maxFileSize="1000000" mode="advanced" customUpload="true">
+        <ng-template #empty>
+          <div>Drag and drop files to here to upload.</div>
+        </ng-template>
+      </p-fileupload>
+    </div>
+
     <div class="col-10 col-offset-1">
       <div class="grid">
         <div *ngFor="let post of profileData.posts" class="xl:col-4 lg:col-6 md:col-6 sm:col-12 col-12 p-1">
@@ -52,7 +63,7 @@
               <div>
                 <div>
                   <img [src]="post.postUrl" alt="image" [style]="style" style="max-height: 50rem;"
-                  (click)="previewCallback()" />
+                    (click)="previewCallback()" />
                 </div>
                 <div>
                   <h3 class="text-center">Image Preview</h3>

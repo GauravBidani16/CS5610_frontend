@@ -75,6 +75,10 @@ body {
   aspect-ratio: 6 / 1;
 }
 
+.h-20rem {
+  height: 20rem !important;
+}
+
 .pattern-background {
   background: radial-gradient(circle, #f6f6f6 10%, transparent 11%), radial-gradient(circle at bottom left, #f6f6f6 5%, transparent 6%), radial-gradient(circle at bottom right, #f6f6f6 5%, transparent 6%), radial-gradient(circle at top left, #f6f6f6 5%, transparent 6%), radial-gradient(circle at top right, #f6f6f6 5%, transparent 6%);
   background-size: 3em 3em;

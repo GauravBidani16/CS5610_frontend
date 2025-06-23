@@ -21,6 +21,8 @@ export class MyProfileComponent {
   uploadedFile: File | null = null;
   ref: DynamicDialogRef | undefined;
   currentUserDetails: any = {};
+  users: any = []
+  responsiveOptions: any[] | undefined;
 
   constructor(
     private router: Router,
@@ -39,6 +41,30 @@ export class MyProfileComponent {
     }
 
     this.loadProfile();
+    this.getAllUsers();
+
+    this.responsiveOptions = [
+      {
+        breakpoint: '1400px',
+        numVisible: 5,
+        numScroll: 4,
+      },
+      {
+        breakpoint: '1199px',
+        numVisible: 5,
+        numScroll: 4,
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 2,
+        numScroll: 2,
+      },
+      {
+        breakpoint: '575px',
+        numVisible: 2,
+        numScroll: 1,
+      },
+    ];
   }
 
   loadProfile() {
@@ -81,7 +107,6 @@ export class MyProfileComponent {
   }
 
   createPost() {
-    // const file = event.target.files[0];
     const file = this.uploadedFile;
     if (file) {
       this.profileService.createPost(file, this.newPostCaption).subscribe({
@@ -96,9 +121,9 @@ export class MyProfileComponent {
   getAllUsers() {
     this.profileService.getAllUsers().subscribe({
       next: (res) => {
-        console.log(res);
-        },
-        error: (err) => console.error('Fetching all users failed.', err)
+        this.users = res.data;
+      },
+      error: (err) => console.error('Fetching all users failed.', err)
     });
   }
 

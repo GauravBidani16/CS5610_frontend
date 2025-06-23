@@ -16,10 +16,15 @@
             </div>
 
             <div>
-              <p-iftalabel>
+              <!-- <p-iftalabel>
                 <input pInputText id="username" class="w-full border-noround" placeholder="Enter your username"
                   formControlName="passwordFC" />
                 <label for="username" class="w-full">Username</label>
+              </p-iftalabel> -->
+
+              <p-iftalabel>
+                <p-password formControlName="passwordFC" styleClass="w-full" placeholder="Enter your password" [toggleMask]="true" feedback="false" inputStyleClass="w-full border-noround" inputId="password" />
+                <label for="password">Password</label>
               </p-iftalabel>
             </div>
 

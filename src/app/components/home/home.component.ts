@@ -25,7 +25,10 @@ export class HomeComponent {
   ) { }
 
   ngOnInit() {
-    this.activate();
+    this.authService.isLoggedIn$.subscribe((status) => {
+      this.isLoggedIn = status;
+      this.activate();
+    });
   }
 
   activate() {
@@ -38,7 +41,6 @@ export class HomeComponent {
     this.postService.getPublicPosts().subscribe({
       next: (data) => {
         this.posts = data.data;
-        console.log(this.posts);
         if (this.isLoggedIn) {
           this.fetchFeedPosts()
         }
@@ -51,7 +53,12 @@ export class HomeComponent {
     this.postService.getFeedPosts().subscribe({
       next: (data) => {
         this.posts = [...data.data, ...this.posts];
+        this.posts = this.posts.filter((post) => {
+          post.comments = post.comments.filter((comment: any) => comment.author);
+          return post.author
+        });
         console.log(this.posts);
+        
       },
       error: (err) => {
         console.error("Error fetching feed posts:", err)

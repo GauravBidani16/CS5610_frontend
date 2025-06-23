@@ -1,9 +1,9 @@
 <div class="container grid w-full">
   <div class="col-12">
-    <div class="lg:col-10 lg:col-offset-1 col-12 col-offset-0 pb-6">
+    <div class="lg:col-10 lg:col-offset-1 col-12 col-offset-0 lg:pb-6 sm:pb-2">
       <div class="grid">
         <div
-          class="lg:col-3 lg:col-offset-0 md:col-3 md:col-offset-0 sm:col-4 sm:col-offset-2 sm:col-6 col-3 col-offset-0">
+          class="lg:col-3 lg:col-offset-0 md:col-3 md:col-offset-0 sm:col-4 sm:col-offset-4 sm:col-4 col-4 col-offset-4">
           <div>
             <p-image [src]="profileData.profilepic" [preview]="true" alt="Image"
               styleClass="hover-opacity-75 cursor-pointer border-circle dp-span"
@@ -11,18 +11,17 @@
             </p-image>
           </div>
         </div>
-        <div class="lg:col-9 md:col-9 md:col-offset-0 sm:col-10 sm:col-offset-1 col-12 py-6">
+        <div class="lg:col-9 md:col-9 md:col-offset-0 sm:col-10 sm:col-offset-1 col-12 sm:py-2 xl:py-6">
           <div class="flex flex-column gap-4 lg:px-4 sm:px-1">
-            <div class="flex align-items-center gap-6 sm:justify-content-between md:justify-content-start">
+            <div class="flex align-items-center flex-column sm:flex-column md:flex-row lg:flex-row xl:flex-row gap-6 sm:justify-content-between lg:justify-content-start xl:justify-content-start">
               <div class="font-medium text-2xl">{{ profileData.username }}</div>
               <div class="flex align-items-center gap-2">
                 <p-button label="Edit Profile" icon="pi pi-pencil" severity="secondary" (onClick)="show()" />
                 <p-button label="Unsplash likes" icon="pi pi-bookmark-fill" severity="secondary" />
-                <p-button label="Get all" icon="pi pi-pencil" severity="secondary" (onClick)="getAllUsers()" />
               </div>
             </div>
 
-            <div class="flex align-items-center lg:gap-8 sm:gap-6 sm:justify-content-between md:justify-content-start">
+            <div class="flex align-items-center lg:gap-8 sm:gap-6 sm:justify-content-between md:justify-content-between lg:justify-content-start justify-content-between">
               <div class="flex flex-column align-items-center gap-2">
                 <div class="font-medium text-xl">Posts</div>
                 <div class="text-lg">{{ profileData.posts?.length || 0 }}</div>
@@ -45,16 +44,62 @@
       </div>
     </div>
 
-    <div class="col-10">
-      <p-fileupload (onSelect)="updateFile($event)" (uploadHandler)="createPost()" (onClear)="clearFile()"
-        accept="image/*" maxFileSize="1000000" mode="advanced" customUpload="true">
-        <ng-template #empty>
-          <div>Drag and drop files to here to upload.</div>
-        </ng-template>
-      </p-fileupload>
+    <div *ngIf="users && users.length !== 0" class="lg:col-10 lg:col-offset-1 sm:hidden md:hidden xl:block hidden lg:pb-6 sm:pb-0">
+      <p-fieldset legend="People you may know" styleClass="w-full" class="w-full">
+        <p-carousel [value]="users" [numVisible]="5" [numScroll]="1" [responsiveOptions]="responsiveOptions" styleClass="w-full">
+          <ng-template let-user #item>
+            <div class="m-2">
+              <div class="flex flex-column shadow-2 pattern-background border-round">
+                <div class="aspect-ratio-1 w-full p-2 sm:p-3 lg:p-4">
+                  <div class="aspect-ratio-1 w-full">
+                    <p-image [src]="user.profilepic" alt="Image" styleClass="cursor-pointer border-circle"
+                      imageClass="w-full aspect-ratio-1 object-fit-cover border-circle">
+                    </p-image>
+                  </div>
+                </div>
+                <div class="aspect-ratio-6-1 sm:px-3 lg:px-4 pb-3">
+                  <div class="flex flex-column gap-2">
+                    <div>
+                      <span class="m-0 font-medium">{{ user.firstname + " " + user.lastname }}</span>
+                    </div>
+                    <button pButton pRipple icon="pi pi-arrow-up-right" [raised]="true" severity="contrast"
+                      class="w-full">
+                      <span pButtonLabel>Follow</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </p-carousel>
+      </p-fieldset>
     </div>
 
-    <div class="col-10 col-offset-1">
+
+    <div class="lg:col-10 lg:col-offset-1 col-12 col-offset-0 pb-6">
+      <p-fieldset legend="Add post" class="w-full" styleClass="w-full">
+        <div class="grid m-0">
+          <div class="col-12">
+            <p-fileupload (onSelect)="updateFile($event)" (uploadHandler)="createPost()" (onClear)="clearFile()"
+              accept="image/*" maxFileSize="1000000" mode="advanced" customUpload="true">
+              <ng-template #empty>
+                <div>Drag and drop files to here to upload.</div>
+              </ng-template>
+            </p-fileupload>
+          </div>
+
+          <div class="col-12">
+            <p-iftalabel>
+              <input pInputText id="caption" class="w-full border-noround" placeholder="Caption" [(ngModel)]="newPostCaption" />
+              <label for="caption" class="w-full">Caption</label>
+            </p-iftalabel>
+          </div>
+        </div>
+
+      </p-fieldset>
+    </div>
+
+    <div class="lg:col-10 lg:col-offset-1 col-12 col-offset-0">
       <div class="grid">
         <div *ngFor="let post of profileData.posts" class="xl:col-4 lg:col-6 md:col-6 sm:col-12 col-12 p-1">
           <p-image [src]="post.postUrl" [preview]="true" alt="Image" styleClass="cursor-pointer"

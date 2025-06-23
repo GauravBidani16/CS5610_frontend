@@ -17,6 +17,8 @@ import { ChipModule } from 'primeng/chip';
 // import { BrowserModule } from '@angular/platform-browser';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { CarouselModule } from 'primeng/carousel';
+import { FieldsetModule } from 'primeng/fieldset';
 
 @NgModule({
   declarations: [],
@@ -40,7 +42,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     DynamicDialogModule,
     ChipModule,
     FileUploadModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CarouselModule,
+    FieldsetModule
   ],
 })
 export class PrimeNGModule { }

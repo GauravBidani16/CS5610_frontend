@@ -45,23 +45,23 @@ export class MyProfileComponent {
 
     this.responsiveOptions = [
       {
-        breakpoint: '1400px',
-        numVisible: 5,
-        numScroll: 4,
-      },
-      {
-        breakpoint: '1199px',
-        numVisible: 5,
-        numScroll: 4,
-      },
-      {
-        breakpoint: '767px',
+        breakpoint: '1200px',
         numVisible: 2,
         numScroll: 2,
       },
       {
-        breakpoint: '575px',
+        breakpoint: '992px',
         numVisible: 2,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '768px',
+        numVisible: 2,
+        numScroll: 1,
+      },
+      {
+        breakpoint: '576px',
+        numVisible: 1,
         numScroll: 1,
       },
     ];

@@ -17,6 +17,7 @@ export class HomeComponent {
   posts: any[] = [];
   isLoggedIn = false;
   currentUserDetails: any = {};
+  commentText: string = "";
 
   constructor(
     private postService: PostService,
@@ -84,14 +85,15 @@ export class HomeComponent {
     });
   }
 
-  addComment(postId: string, text: string) {
+  addComment(postId: string) {
     if (!this.isLoggedIn) {
       this.snackbarService.show('You must be logged in to comment on a post');
       // this.snackbarService.showInfo('Please log in to add comments');
       return;
     }
-    this.postService.addComment(postId, text).subscribe({
+    this.postService.addComment(postId, this.commentText).subscribe({
       next: (comment) => {
+        this.commentText = "";
         const post = this.posts.find(p => p._id === postId);
         if (post) post.comments.push({ author: { ...this.currentUserDetails }, text: comment.data.text });
       },

@@ -23,15 +23,15 @@
             <div class="flex align-items-center lg:gap-8 sm:gap-6 sm:justify-content-between md:justify-content-between lg:justify-content-start justify-content-between">
               <div class="flex flex-column align-items-center gap-2">
                 <div class="font-medium text-xl">Posts</div>
-                <div class="text-lg">{{ profileData.postCount || 0 }}</div>
+                <div class="text-lg">{{ profileData.posts?.length || 0 }}</div>
               </div>
               <div class="flex flex-column align-items-center gap-2">
                 <div class="font-medium text-xl">Followers</div>
-                <div class="text-lg">{{ profileData.followerCount || 0 }}</div>
+                <div class="text-lg">{{ profileData.followers?.length || 0 }}</div>
               </div>
               <div class="flex flex-column align-items-center gap-2">
                 <div class="font-medium text-xl">Following</div>
-                <div class="text-lg">{{ profileData.followingCount || 0 }}</div>
+                <div class="text-lg">{{ profileData.following?.length || 0 }}</div>
               </div>
             </div>
             <div>

@@ -52,10 +52,10 @@
             <div class="w-full">
               <p-iftalabel>
                 <p-inputGroup>
-                  <input pInputText id="comment" class="w-full border-noround" placeholder="Add a comment..." #commentInput/>
+                  <input pInputText id="comment" class="w-full border-noround" placeholder="Add a comment..." [(ngModel)]="commentText" />
                   <label for="comment" class="w-full">Add Comment</label>
                   <p-inputgroup-addon styleClass="border-noround">
-                    <p-button icon="pi pi-check" severity="secondary" variant="text" (click)="addComment(post._id, commentInput.value)" />
+                    <p-button icon="pi pi-check" severity="secondary" variant="text" (click)="addComment(post._id)" />
                   </p-inputgroup-addon>
                 </p-inputGroup>
               </p-iftalabel>

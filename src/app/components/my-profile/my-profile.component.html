@@ -62,7 +62,7 @@
                     <div>
                       <span class="m-0 font-medium">{{ user.firstname + " " + user.lastname }}</span>
                     </div>
-                    <button pButton pRipple icon="pi pi-arrow-up-right" [raised]="true" severity="contrast"
+                    <button pButton pRipple icon="pi pi-arrow-up-right" [raised]="true" severity="contrast" [routerLink]="`/profile + ${user.username}`"
                       class="w-full">
                       <span pButtonLabel>Follow</span>
                     </button>

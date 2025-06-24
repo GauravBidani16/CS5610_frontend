@@ -7,7 +7,7 @@
     <div class="grid m-0">
       <div class="col-6">
         <div class="w-full">
-          <p-image [src]="imageDetails.urls.regular" alt="Image" styleClass="cursor-pointer"
+          <p-image [src]="imageDetails?.urls?.regular" alt="Image" styleClass="cursor-pointer"
             imageClass="w-full aspect-ratio-1 object-fit-cover">
           </p-image>
         </div>
@@ -17,11 +17,12 @@
           <div class="flex flex-column gap-3">
             <div>
               <span class="font-medium font-italic text-xl">Photo by : </span>
-              <span class="font-light font-italic text-xl">{{ imageDetails.user.name }}</span>
+              <span class="font-light font-italic text-xl">{{ imageDetails?.user?.name }}</span>
             </div>
             <div>
               <span class="font-medium font-italic text-xl">Description : </span>
-              <span class="font-light font-italic text-xl">{{ imageDetails.description ? imageDetails.description : imageDetails.alt_description }}</span>
+              <span class="font-light font-italic text-xl">{{ imageDetails?.description ? imageDetails?.description :
+                imageDetails?.alt_description }}</span>
             </div>
           </div>
 
@@ -30,11 +31,47 @@
               <span class="font-medium font-italic text-xl">Tags : </span>
             </div>
             <div class="flex items-center gap-2 flex-wrap">
-              <span *ngFor="let tag of imageDetails.tags">
+              <span *ngFor="let tag of imageDetails?.tags">
                 <p-chip [label]="tag.title"></p-chip>
               </span>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isLoggedIn" class="col-12">
+    <p-divider></p-divider>
+  </div>
+
+  <div *ngIf="isLoggedIn" class="col-12">
+    <h2 class="text-xl font-normal">Leave a review</h2>
+    <div class="col-12 px-0">
+      <div class="w-full">
+        <p-iftalabel>
+          <p-inputGroup>
+            <input pInputText id="comment" class="w-full border-noround" placeholder="Share your love with the creator..."
+              [(ngModel)]="commentText" />
+            <label for="comment" class="w-full">Add Comment</label>
+            <p-inputgroup-addon styleClass="border-noround">
+              <p-button icon="pi pi-check" severity="secondary" variant="text" (click)="addComment()" />
+            </p-inputgroup-addon>
+          </p-inputGroup>
+        </p-iftalabel>
+      </div>
+    </div>
+    <div *ngIf="unsplashComments.length > 0">
+      <div *ngFor="let comment of unsplashComments" class="my-3">
+        <div class="col-4 m-0 p-0">
+          <p-divider></p-divider>
+        </div>
+        <div class="flex align-items-center justify-content-start gap-2">
+          <div class="w-2rem cursor-pointer basic-link" [routerLink]="'/profile/' + comment.user?.username">
+            <img [src]="comment.user?.profilepic" alt="Commentor DP" class="aspect-ratio-1 border-circle w-full" />
+          </div>
+          <div class="font-medium cursor-pointer basic-link" [routerLink]="'/profile/' + comment.user?.username">{{ comment.user?.username }}</div>
+          <div class="font-light">{{ comment?.comment }}</div>
         </div>
       </div>
     </div>

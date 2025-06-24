@@ -1,5 +1,6 @@
 import { AdminComponent } from './components/admin/admin.component';
 import { ImageDetailsComponent } from './components/image-details/image-details.component';
+import { SavedPicturesComponent } from './components/saved-pictures/saved-pictures.component';
 import { SearchComponent } from './components/search/search.component';
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
@@ -36,6 +37,7 @@ export const routes = [
   { path: 'search/:query', component: SearchComponent },
   { path: 'details/:query', component: ImageDetailsComponent },
   { path: 'admin', component: AdminComponent },
+  { path: 'saved', component: SavedPicturesComponent },
   {
     path: '',
     pathMatch: 'full' as const,

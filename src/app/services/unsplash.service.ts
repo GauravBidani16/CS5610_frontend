@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { forkJoin, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UnsplashService {
   private apiUrl = environment.unsplashApiUrl;
+  private unsplashLocalUrl = environment.apiUrl + '/unsplash';
   private accessKey = environment.unsplashAccessKey;
 
   constructor(private http: HttpClient) {
@@ -41,6 +42,39 @@ export class UnsplashService {
 
     return this.http.get<any[]>(`${this.apiUrl}/photos/${pictureId}`, { params });
   }
+
+  getPhotosByIds(pictureIds: string[]): Observable<any[]> {
+    const photoRequests = pictureIds.map(id => this.getPhotoById(id));
+    return forkJoin(photoRequests);
+  }
+
+
+  createInteraction(unsplashId: string, comment: string): Observable<any> {
+    return this.http.post<any>(`${this.unsplashLocalUrl}`, { unsplashId, comment });
+  }
+
+  getUserInteractionsByUnsplashId(unsplashId: string): Observable<any> {
+    return this.http.get<any>(`${this.unsplashLocalUrl}/mine/${unsplashId}`);
+  }
+
+  getAllInteractionsByUnsplashId(unsplashId: string): Observable<any> {
+    return this.http.get<any>(`${this.unsplashLocalUrl}/all/${unsplashId}`);
+  }
+
+  getAllInteractionsByUser(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.unsplashLocalUrl}/user/${userId}`);
+  }
+
+  filterByProperty(data: any[], propertyName: string) {
+    const seen = new Set();
+    const deduplicated = data.filter(item => {
+      if (seen.has(item[propertyName])) return false;
+      seen.add(item.unsplashId);
+      return true;
+    });
+    return deduplicated;
+  }
+
 
   private handleError(error: any): Observable<never> {
     let errorMessage = 'An unknown error occurred!';

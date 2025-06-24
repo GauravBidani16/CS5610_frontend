@@ -1,0 +1,55 @@
+<div class="container grid w-full">
+  <div class="col-12">
+    <h2 class="font-medium">Your Saved Pictures</h2>
+  </div>
+
+  <div *ngIf="!isLoggedIn" class="col-12">
+    <div>
+      <p-card header="Login Required">
+        <div>
+          <h3 class="font-normal text-center">You must log in to view your interactions.</h3>
+        </div>
+        <div class="flex justify-content-center align-items-center">
+          <button pButton pRipple icon="pi pi-sign-in" (click)="redirectToLoginPage()"
+                  [raised]="true">
+                  <span pButtonLabel>Image details</span>
+            </button>
+        </div>
+      </p-card>
+    </div>
+  </div>
+
+  <div *ngIf="isLoggedIn" class="col-12">
+    <div class="grid m-0">
+      <div *ngFor="let image of images" class="xl:col-4 lg:col-6 md:col-6 sm:col-12 col-12">
+        <div class="flex flex-column shadow-2 pattern-background">
+          <div class="aspect-ratio-1 w-full p-2 sm:p-3 lg:p-4">
+            <div class="aspect-ratio-1 w-full">
+              <p-image [src]="image.urls.regular" alt="Image" styleClass="cursor-pointer"
+                imageClass="w-full aspect-ratio-1 object-fit-cover">
+              </p-image>
+            </div>
+          </div>
+          <div class="aspect-ratio-6-1 sm:px-3 lg:px-4 pb-3">
+            <div class="flex justify-content-between align-items-center">
+              <div class="flex flex-column gap-2">
+                <div>
+                  <span class="m-0 font-medium font-italic">Photo By : </span>
+                </div>
+                <div>
+                  <span class="m-0 font-normal font-italic">{{ image.user.name }}</span>
+                </div>
+              </div>
+              <div>
+                <button pButton pRipple icon="pi pi-arrow-up-right" (click)="redirectToDetailsPage(image.id)"
+                  [raised]="true" severity="contrast" class="w-full">
+                  <span pButtonLabel>Image details</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

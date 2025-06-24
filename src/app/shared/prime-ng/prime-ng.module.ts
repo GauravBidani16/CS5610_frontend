@@ -19,6 +19,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CarouselModule } from 'primeng/carousel';
 import { FieldsetModule } from 'primeng/fieldset';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [],
@@ -44,7 +45,8 @@ import { FieldsetModule } from 'primeng/fieldset';
     FileUploadModule,
     ConfirmDialogModule,
     CarouselModule,
-    FieldsetModule
+    FieldsetModule,
+    CardModule
   ],
 })
 export class PrimeNGModule { }

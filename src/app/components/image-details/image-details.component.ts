@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { UnsplashService } from '../../services/unsplash.service';
 import { PrimeNGModule } from '../../shared/prime-ng/prime-ng.module';
 import { AuthService } from '../../services/auth.service';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-image-details',
@@ -27,6 +28,7 @@ export class ImageDetailsComponent {
     private authService: AuthService,
     private router: Router,
     private unsplashService: UnsplashService,
+    private snackbarService: SnackbarService
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +42,8 @@ export class ImageDetailsComponent {
         this.searchById(this.query);
         if (this.isLoggedIn) {
           this.fetchCurrentImageDetails(this.query);
+        } else {
+          this.snackbarService.showToast("Login to share your thoughts!", "Info", "info");
         }
       } else {
         this.router.navigate(['/search'])

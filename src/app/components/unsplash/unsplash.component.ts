@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { UnsplashService } from '../../services/unsplash.service';
-import { catchError, finalize, of } from 'rxjs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-unsplash',
@@ -11,16 +11,16 @@ import { CommonModule } from '@angular/common';
   styleUrl: './unsplash.component.scss'
 })
 export class UnsplashComponent {
-  query: string = ''; // Holds the user's search query
-  images: any[] = []; // Stores the fetched image data
-  isLoading: boolean = false; // Flag for loading state
-  errorMessage: string = ''; // Stores any error messages
+  query: string = '';
+  images: any[] = [];
+  isLoading: boolean = false;
+  errorMessage: string = '';
 
-  constructor(private unsplashService: UnsplashService) { }
+  constructor(
+    private unsplashService: UnsplashService,
+    private snackbarService: SnackbarService
+  ) { }
 
-  /**
-   * Initiates the image search based on the current query.
-   */
   searchImages(): void {
     if (!this.query.trim()) {
       this.errorMessage = 'Please enter a search term.';
@@ -30,7 +30,7 @@ export class UnsplashComponent {
 
     this.isLoading = true;
     this.errorMessage = '';
-    this.images = []; // Clear previous results
+    this.images = [];
 
     this.unsplashService.searchPhotos(this.query, 1, 10).subscribe({
       next: (data) => {
@@ -43,28 +43,9 @@ export class UnsplashComponent {
           this.errorMessage = 'Unexpected response format.';
         }
       },
-      error: (error) => console.log('Error fetching images:', error)
-    });
+      error: (error) => this.snackbarService.showToast("Error fetching images", "Error", "error")
 
-    //   }) // Search for 30 images on the first page
-    //     .pipe(
-    //       catchError(error => {
-    //         this.errorMessage = error.message || 'Failed to fetch images. Check console for details.';
-    //         return of(null); // Return an observable with null to prevent breaking the stream
-    //       }),
-    //       finalize(() => {
-    //         this.isLoading = false; // Always set loading to false when the observable completes or errors
-    //       })
-    //     )
-    //     .subscribe(response => {
-    //       if (response && response.results) {
-    //         this.images = response.results;
-    //         if (this.images.length === 0) {
-    //           this.errorMessage = 'No images found for your search.';
-    //         }
-    //       }
-    //     });
-    // }
+    });
   }
 
 }

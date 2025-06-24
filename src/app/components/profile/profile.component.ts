@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { PrimeNGModule } from '../../shared/prime-ng/prime-ng.module';
 import * as _ from 'lodash';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +26,8 @@ export class ProfileComponent {
     private route: ActivatedRoute,
     private profileService: ProfileService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private snackbarService: SnackbarService
   ) { }
 
   ngOnInit() {
@@ -64,6 +66,7 @@ export class ProfileComponent {
         this.isFollowing = true;
         this.profileData.followers.push(this.authService.getUsername());
         this.canViewPosts = this.profileData.role === 'PUBLIC_USER' || this.isFollowing || this.isAdmin;
+        this.snackbarService.showToast(`You are now following ${this.username}`)
       },
       error: (err) => console.error('Follow failed:', err)
     });
@@ -75,6 +78,7 @@ export class ProfileComponent {
         this.isFollowing = false;
         this.profileData.followers = this.profileData.followers.filter((user: string | null) => user !== this.authService.getUsername());
         this.canViewPosts = this.profileData.role === 'PUBLIC_USER' || this.isFollowing || this.isAdmin;
+        this.snackbarService.showToast(`You unfollowed ${this.username}`)
       },
       error: (err) => console.error('Unfollow failed:', err)
     });

@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { ProfileService } from '../../services/profile.service';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-admin',
@@ -21,7 +22,8 @@ export class AdminComponent {
     private profileService: ProfileService,
     private authService: AuthService,
     private router: Router,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private snackbarService: SnackbarService
   ) { }
 
   ngOnInit() {
@@ -35,7 +37,6 @@ export class AdminComponent {
     this.profileService.getAllUsers()
       .subscribe({
         next: (data) => {
-          console.log(data.data);
           this.userData = data.data;
           // this.profileData.posts.push(post.data);
         },
@@ -80,10 +81,10 @@ export class AdminComponent {
   deleteUser(username: string) {
     this.profileService.deleteUser(username).subscribe({
       next: (data) => {
-        this.userData = this.userData.filter((user: any) => user.username !== data.data.username)
-        console.log(data);
+        this.userData = this.userData.filter((user: any) => user.username !== data.data.username);
+        this.snackbarService.showToast('User profile deleted');
       },
-      error: (err) => console.error('Error deleting the user', err)
+      error: (err) => this.snackbarService.showToast('Error deleting the user', "Error", "error")
     });
   }
 

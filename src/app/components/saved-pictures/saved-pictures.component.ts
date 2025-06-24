@@ -3,6 +3,7 @@ import { PrimeNGModule } from '../../shared/prime-ng/prime-ng.module';
 import { UnsplashService } from '../../services/unsplash.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-saved-pictures',
@@ -19,7 +20,8 @@ export class SavedPicturesComponent {
   constructor(
     private authService: AuthService,
     private unsplashService: UnsplashService,
-    private router: Router
+    private router: Router,
+    private snackbarService: SnackbarService
   ) { }
 
   ngOnInit() {
@@ -46,6 +48,8 @@ export class SavedPicturesComponent {
           },
           error: (err) => console.error("Error fetching unsplash images for current user", err)
         })
+    } else {
+      this.snackbarService.showToast("Login to view your interactions", "Info", "info");
     }
   }
 

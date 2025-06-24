@@ -34,10 +34,8 @@ export class LoginComponent {
       this.authService.login(loginObject?.username!, loginObject?.password!).subscribe({
         next: (response) => {
           this.authService.storeToken(response?.data?.accessToken);
-          this.snackbarService.show('Login successful');
-          console.log('Login successful');
+          this.snackbarService.showToast('Login successful');
           this.router.navigate(['/home']);
-          // this.router.navigate(['/dashboard']); // Redirect after login
         },
         error: (err) => {
           console.error('Login failed:', err);

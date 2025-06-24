@@ -43,8 +43,7 @@ export class RegisterComponent {
       const { username, firstname, lastname, email, password, confirmPassword, role, bio, file } = this.registerForm.value;
 
       if (password !== confirmPassword) {
-        this.snackbarService.show('Passwords do not match');
-        console.error('Passwords do not match');
+        this.snackbarService.showToast('Passwords do not match', "Error", "error");
         return;
       }
 
@@ -64,8 +63,8 @@ export class RegisterComponent {
 
       this.authService.register(formData).subscribe({
         next: (response) => {
-          console.log('Registration successful');
           this.router.navigate(['/login']);
+          this.snackbarService.showToast("Registeration Sucessfull");
         },
         error: (err) => {
           this.snackbarService.show('Registration failed: Please try again later');

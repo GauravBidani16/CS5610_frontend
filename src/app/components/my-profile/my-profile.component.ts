@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { ProfileService } from '../../services/profile.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { UpdateProfileComponent } from '../update-profile/update-profile.component';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-my-profile',
@@ -29,6 +30,7 @@ export class MyProfileComponent {
     private profileService: ProfileService,
     private authService: AuthService,
     public dialogService: DialogService,
+    private snackBarService: SnackbarService
   ) { }
 
   ngOnInit() {
@@ -83,6 +85,7 @@ export class MyProfileComponent {
     this.profileService.updateProfile(updatedProfileData).subscribe({
       next: () => {
         this.profileData = { ...this.profileData, ...updatedProfileData };
+        this.snackBarService.showToast("Profile information updated successfully")
       },
       error: (err) => console.error('Profile update failed:', err)
     });
@@ -112,6 +115,9 @@ export class MyProfileComponent {
       this.profileService.createPost(file, this.newPostCaption).subscribe({
         next: (post) => {
           this.profileData.posts.push(post.data);
+          this.uploadedFile = null;
+          this.newPostCaption = "";
+          this.snackBarService.showToast("New post added successfully");
         },
         error: (err) => console.error('Post creation failed:', err)
       });

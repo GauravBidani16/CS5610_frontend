@@ -57,12 +57,10 @@ export class HomeComponent {
         this.posts = this.posts.filter((post) => {
           post.comments = post.comments.filter((comment: any) => comment.author);
           return post.author
-        });
-        console.log(this.posts);
-        
+        });        
       },
       error: (err) => {
-        console.error("Error fetching feed posts:", err)
+        this.snackbarService.showToast('Error fetching feed posts', "Error", "error");
         this.authService.logout();
       }
     });
@@ -87,7 +85,7 @@ export class HomeComponent {
 
   addComment(postId: string) {
     if (!this.isLoggedIn) {
-      this.snackbarService.show('You must be logged in to comment on a post');
+      this.snackbarService.showToast('You must be logged in to comment on a post', 'Warn', "warn");
       // this.snackbarService.showInfo('Please log in to add comments');
       return;
     }

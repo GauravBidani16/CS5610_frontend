@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PrimeNGModule } from '../../shared/prime-ng/prime-ng.module';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-search',
@@ -24,6 +25,7 @@ export class SearchComponent {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private unsplashService: UnsplashService,
+    private snackbarService: SnackbarService
   ) { }
 
   ngOnInit(): void {
@@ -66,9 +68,9 @@ export class SearchComponent {
         if (response && response.results) {
           this.images = response.results;
           if (this.images.length === 0) {
-            console.log('No Results', `No images found for "${query}".`);
+            this.snackbarService.showToast(`No images found for "${query}"`, "Warn", "warn");
           } else {
-            console.log('Success', `Found ${response.results.length} images for "${query}".`);
+            this.snackbarService.showToast(`Images retrieved successfully for "${query}"`);
           }
         }
       });
@@ -83,13 +85,8 @@ export class SearchComponent {
       .subscribe(response => {
         if (response) {
           this.images = response;
-          console.log(this.images[0]);
-
           if (this.images.length > 0) {
             this.isLoading = false;
-            console.log('Showing Random Photos', 'No search query provided. Enjoy these random images!');
-          } else {
-            console.log('No Random Photos', 'Could not load random images at this time.');
           }
         }
       });
@@ -98,7 +95,7 @@ export class SearchComponent {
   searchById(pictureId: string) {
     this.unsplashService.getPhotoById(pictureId).subscribe(response => {
       if (response) {
-        console.log("PhotoById", response);
+        // console.log("PhotoById", response);
       }
     })
   }

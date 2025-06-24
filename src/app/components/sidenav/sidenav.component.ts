@@ -3,6 +3,7 @@ import { PrimeNGModule } from '../../shared/prime-ng/prime-ng.module';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -11,13 +12,13 @@ import { Router } from '@angular/router';
   styleUrl: './sidenav.component.scss'
 })
 export class SidenavComponent {
-
   isLoggedIn = false;
   currentUserDetails: any = {};
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private snackbarService: SnackbarService
   ) {}
 
   ngOnInit() {
@@ -35,6 +36,7 @@ export class SidenavComponent {
 
   logout() {
     this.authService.logout();
+    this.snackbarService.showToast("Logged out!")
     this.router.navigate(['/home'])
   }
 
